@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyDdjoc2a8dK5Frxx3s0hGS6URWLoEuos-Y',
+    authDomain: 'crophopeapp.firebaseapp.com',
+    databaseURL: 'https://crophopeapp.firebaseio.com',
+    projectId: 'crophopeapp',
+    storageBucket: 'crophopeapp.appspot.com',
+    messagingSenderId: '972189107212'
+  }
 };
 
 /*

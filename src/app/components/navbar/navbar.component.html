@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #9e9d24">
+  <a class="navbar-brand" routerLink="/">CropHope</a>
+
+  <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngIf="!authenticated">Login</a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard" *ngIf="authenticated && loggedUser.finishedForm">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/transactions" *ngIf="authenticated && loggedUser.finishedForm">Transactions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/fundraisers">Fundraise for</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="onSignOut()" *ngIf="authenticated">Sign out</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,71 @@
+<div class="card" style="width: 100%;">
+  <img class="card-img-top" src="https://farm6.staticflickr.com/5779/21229179885_76e9facef1_o.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Welcome to CropHope!</h5>
+    <p class="card-text">With the use of ethereum blockchain network you will be able to send and receive funds that will
+      help improve agriculture environmentally friendly production!</p>
+    <div style="text-align: center">
+      <a class="btn btn-outline-primary" (click)="onGoogleSignIn()">
+        <img class="pull-left" style="margin-right: 10px" width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+        /> Sign-in With Google
+      </a>
+      <br><br>
+      <a href=""><u>More information</u></a>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close('Save click')" let-d="dismiss('Cross click')">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Please fill your profile to continue:</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Entity or company name:</label>
+        <input type="text" class="form-control" name="entityName" [(ngModel)]="user.entityName">
+      </div>
+      <div class="form-group">
+        <label>Describe your company:</label>
+        <textarea class="form-control" name="description" [(ngModel)]="user.description"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="companyTypeRadio" id="notAgricultureCompany" value="false" [(ngModel)]="user.isAgricultureCompany">
+          <label class="form-check-label" for="notAgricultureCompany">Give funds (NGO or government entity)</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="companyTypeRadio" id="agricultureCompany" value="true" [(ngModel)]="user.isAgricultureCompany" checked>
+          <label class="form-check-label" for="agricultureCompany">Receive funds (Agriculture company)</label>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label>Looking to give or receive funds:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="notAgricultureCompany" id="notAgricultureCompany"  checked>
+          <label class="form-check-label" for="notAgricultureCompany">
+            Give funds (NGO or government entity)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="agricultureCompany" id="agricultureCompany">
+          <label class="form-check-label" for="agricultureCompany">
+            Receive funds (Agriculture company)
+          </label>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <label>Ethereum id:</label>
+        <input type="text" class="form-control" name="ethereumId" [(ngModel)]="user.ethereumId">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c">Save</button>
+  </div>
+</ng-template>
+
+<button #openModal (click)="open(content)" [hidden]="true">Launch demo modal</button>
