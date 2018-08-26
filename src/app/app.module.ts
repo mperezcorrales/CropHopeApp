@@ -1,3 +1,5 @@
+import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
+import { FundraiserProfileService } from './services/fundraiser-profile.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -29,13 +31,17 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AppRoutingModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgbModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    FundraiserProfileService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

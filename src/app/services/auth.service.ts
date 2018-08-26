@@ -46,8 +46,8 @@ export class AuthService {
       email: user.email,
       finishedForm: false
     };
-    return userData;
     userRef.set(userData);
+    return userData;
   }
 
   public updateUserInFirestore(user) {

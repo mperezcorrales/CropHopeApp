@@ -1,3 +1,53 @@
-<p>
-  dashboard works!
-</p>
+<div class="card" style="width: 100%;" *ngIf="userLoaded">
+  <div class="card-body">
+    <h5 class="card-title">Welcome {{user.entityName}}</h5>
+    <div *ngIf="user.isAgricultureCompany; then showForAgriculture; else showForNGO"></div>
+    <ng-template #showForAgriculture>
+      <p class="card-text">Thanks for trusting CropHope. In this dashboard you will be able to see and edit your company
+        profile. Press the button below to create or edit your your public profile other companies will see when deciding
+        who to give funds!
+      </p>
+      <button type="button" class="btn btn-primary" (click)="showPublicProfileForm = true">Edit public profile</button>
+      <form *ngIf="showPublicProfileForm" style="margin-top: 10px">
+        <div class="form-group">
+          <label>Public company description</label>
+          <textarea class="form-control" rows="4" maxlength="300" placeholder="This company is about..." [(ngModel)]="publicProfile.description"
+            name="description"></textarea>
+          <small class="form-text text-muted">Max. 300 characters.</small>
+        </div>
+        <div class="form-group">
+          <label>URL to company's website</label>
+          <input class="form-control" placeholder="www.mywebsite.com" [(ngModel)]="publicProfile.websiteURL" name="websiteURL">
+          <small class="form-text text-muted">If you don't have a website show a website that proofs your existance</small>
+        </div>
+        <div class="form-group">
+          <label>Phone number</label>
+          <input class="form-control" placeholder="511959999999" [(ngModel)]="publicProfile.phoneNumber" name="phoneNumber">
+          <small class="form-text text-muted">Please include your country's and city's calling codes.</small>
+        </div>
+        <div class="form-group">
+          <label>Current carbon footprint in tonnes of CO<sub>2</sub></label>
+          <input class="form-control" placeholder="133.45" [(ngModel)]="publicProfile.carbonFootprint" name="carbonFootprint">
+        </div>
+        <div class="form-group">
+          <label>Percentage (%) you are willing to reduce</label>
+          <input class="form-control" placeholder="20" [(ngModel)]="publicProfile.carbonReductionPerc"  name="carbonReductionPerc">
+        </div>
+        <div class="form-group">
+          <label for="companyLogo">Please attach your company logo (png)</label>
+          <input type="file" class="form-control-file" id="companyLogoInput" accept="image/*" name="logoStorageId" (change)="onPublicProfileLogoUploaded($event)">
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary float-left" (click)="onPublicProfileSubmit()">Submit</button>
+          <button class="btn btn-danger float-right" (click)="onPublicProfileFormCancel()">Cancel</button>
+        </div>
+      </form>
+    </ng-template>
+    <ng-template #showForNGO>
+      <p class="card-text">Thanks for trusting CropHope. In this dashboard you will be able to see and edit your company
+        profile. Press the button below start searching for companies to give funds to!
+      </p>
+      <button type="button" class="btn btn-success" routerLink="/fundraisers">Start giving funds</button>
+    </ng-template>
+  </div>
+</div>
