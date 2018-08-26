@@ -1,6 +1,6 @@
 <div class="card" style="width: 100%;" *ngIf="userLoaded">
   <div class="card-body">
-    <h5 class="card-title">Welcome {{user.entityName}}</h5>
+    <h2 class="card-title">Welcome {{user.entityName}}</h2>
     <div *ngIf="user.isAgricultureCompany; then showForAgriculture; else showForNGO"></div>
     <ng-template #showForAgriculture>
       <p class="card-text">Thanks for trusting CropHope. In this dashboard you will be able to see and edit your company
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
           <label>Percentage (%) you are willing to reduce</label>
-          <input class="form-control" placeholder="20" [(ngModel)]="publicProfile.carbonReductionPerc"  name="carbonReductionPerc">
+          <input class="form-control" placeholder="20" [(ngModel)]="publicProfile.carbonReductionPerc" name="carbonReductionPerc">
         </div>
         <div class="form-group">
           <label for="companyLogo">Please attach your company logo (png)</label>
@@ -49,5 +49,49 @@
       </p>
       <button type="button" class="btn btn-success" routerLink="/fundraisers">Start giving funds</button>
     </ng-template>
+  </div>
+</div>
+
+<div *ngIf="userLoaded && user.finishedForm && publicProfile.isFilled" style="margin-top: 30px;">
+  <h3>Public fundraiser profile</h3>
+  <div class="card" style="width: 100%; margin-top: 10px; background-color: #f1f8e9;">
+    <div class="card-body">
+      <div class="row" height="100px">
+        <div class="col-8 d-flex align-items-center">
+          <h2 class="align-middle">{{publicProfile.entityName}}</h2>
+        </div>
+        <div class="col-4">
+          <img [src]="publicProfile.logoStorageURL" class="float-right" width="80px" height="80px">
+        </div>
+      </div>
+      <hr>
+      <p>{{publicProfile.description}}</p>
+      <hr>
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <p style="font-size: 1.2rem;">Current carbon footprint: <b>{{publicProfile.carbonFootprint}} tCO2</b></p>
+        </div>
+        <div class="col-12 col-md-6">
+          <p style="font-size: 1.2rem;">Percentage willing to reduce: <b>{{publicProfile.carbonReductionPerc}}%</b></p>
+        </div>
+      </div>
+      <hr>
+      <div style="margin-top: 20px; margin-bottom: 20px;; ">
+        <h4 style="margin-bottom:20px;">Contact information: </h4>
+        <div class="row">
+          <div class="col-12 col-md-4" style="text-align: center;">
+            <button type="button" (click)="onPublicProfileWebsiteLinkClicked()" class="btn btn-info" style="display: inline-block;">Visit
+              our website</button>
+          </div>
+          <div class="col-12 col-md-4" style="text-align: center; margin-top: 10px;">
+            <p style="display: inline-block;">Phone number: <b>{{publicProfile.phoneNumber}}</b></p>
+          </div>
+          <div class="col-12 col-md-4" style="text-align: center; ">
+            <p style="display: inline-block;">Email: <b>{{publicProfile.email}}</b></p>
+          </div>
+        </div>
+      </div>
+      <button type="button" width="100%" class="btn btn-success float-right" style="font-size: 1.3rem; margin-right: 30px;">Give funds!</button>
+    </div>
   </div>
 </div>

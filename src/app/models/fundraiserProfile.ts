@@ -1,21 +1,29 @@
-// export interface FundraiserProfile {
-//     id: string;
-//     description: string;
-//     websiteURL: string;
-//     phoneNumber: string;
-//     carbonFootprint: string;
-//     carbonReductionPerc: number;
-//     logoStorageId: string;
-// }
-
 export class FundraiserProfile {
-    id = '';
+    userId = '';
+    entityName = '';
+    email = '';
     description = '';
     websiteURL = '';
     phoneNumber = '';
     carbonFootprint = '';
     carbonReductionPerc = '';
     logoStorageURL = '';
+    isFilled = false;
+
+    constructor(profileInterface) {
+        if (profileInterface) {
+            this.userId = profileInterface.userId;
+            this.entityName = profileInterface.entityName;
+            this.email = profileInterface.email;
+            this.description = profileInterface.description;
+            this.websiteURL = profileInterface.websiteURL;
+            this.phoneNumber = profileInterface.phoneNumber;
+            this.carbonFootprint = profileInterface.carbonFootprint;
+            this.carbonReductionPerc = profileInterface.carbonReductionPerc;
+            this.logoStorageURL = profileInterface.logoStorageURL;
+            this.isFilled = profileInterface.isFilled;
+        }
+    }
 
     clear() {
         this.description = '';
