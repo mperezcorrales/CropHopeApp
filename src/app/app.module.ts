@@ -1,3 +1,4 @@
+import { TransactionsService } from './services/transactions.service';
 import { AngularFireStorage, AngularFireStorageModule } from 'angularfire2/storage';
 import { FundraiserProfileService } from './services/fundraiser-profile.service';
 import { AuthService } from './services/auth.service';
@@ -44,7 +45,8 @@ import { MakeTransactionComponent } from './components/make-transaction/make-tra
   ],
   providers: [
     AuthService,
-    FundraiserProfileService
+    FundraiserProfileService,
+    TransactionsService
   ],
   bootstrap: [AppComponent]
 })

@@ -63,4 +63,9 @@ export class FundraiserProfileService {
   getAllFundraiserProfiles() {
     return this.fundraiserProfilesCollection.valueChanges();
   }
+
+  getSpecificUserFundraiserProfile(fundraiserProfileId) {
+    return this.afs.doc<FundraiserProfile>(`fundraiser-profiles/${fundraiserProfileId}`).valueChanges();
+  }
+
 }

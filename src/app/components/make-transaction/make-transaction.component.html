@@ -1,3 +1,30 @@
-<p>
-  make-transaction works!
-</p>
+<div *ngIf="loaded" class="card">
+  <div class="card-body">
+    <h2 class="card-title">CropHope Ethereum Transaction</h2>
+    <p class="card-text">Please take into account that ethereum smart contracts are irreversible once borth parties accept
+      it.
+    </p>
+    <h5 style="margin-top: 15px">Giving to:</h5>
+    <label>Company name: {{fundraiserProfile.entityName}}</label>
+    <p>Company's description: {{fundraiserProfile.description}}</p>
+    <p>Company's current footprint: {{fundraiserProfile.carbonFootprint}}</p>
+    <h3 style="margin-top: 5px">Please fill your contract requests and the funds you are willing to give:</h3>
+    <form>
+      <div class="form-group">
+        <label>Requested carbon emission reduction in percentage (%)</label>
+        <input class="form-control" placeholder="30" [(ngModel)]="transaction.carbonReductionPerc" name="carbonReductionPerc">
+        <small class="form-text text-muted">Take into account the company's current carbon footprint.</small>
+      </div>
+      <div class="form-group">
+        <label>Requested time window to complete task (days)</label>
+        <input class="form-control" placeholder="90" [(ngModel)]="transaction.timeWindow" name="timeWindow">
+      </div>
+      <div class="form-group">
+        <label>Amount of ethers you are willing to give</label>
+        <input class="form-control" placeholder="8.35" [(ngModel)]="transaction.amount" name="amount">
+      </div>
+      <button type="button" class="btn btn-success float-left" (click)="onTransactionAccepted()">Accept</button>
+      <button type="button" class="btn btn-danger float-right" (click)="onTransactionCancelled()">Cancel</button>
+    </form>
+  </div>
+</div>
