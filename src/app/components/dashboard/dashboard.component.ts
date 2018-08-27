@@ -67,9 +67,4 @@ export class DashboardComponent implements OnInit {
     this.publicProfileFile = e.target.files[0];
   }
 
-  onPublicProfileWebsiteLinkClicked() {
-    console.log(this.publicProfile.websiteURL);
-    window.location.href = this.publicProfile.websiteURL;
-  }
-
 }

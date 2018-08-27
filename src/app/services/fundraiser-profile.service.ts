@@ -59,4 +59,8 @@ export class FundraiserProfileService {
       this.fundraiserProfilesCollection.doc(userId).update(Object.assign({}, profile));
     }
   }
+
+  getAllFundraiserProfiles() {
+    return this.fundraiserProfilesCollection.valueChanges();
+  }
 }

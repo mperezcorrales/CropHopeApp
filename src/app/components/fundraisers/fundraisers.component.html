@@ -1,3 +1,4 @@
-<p>
-  fundraisers works!
-</p>
+<div *ngFor="let fundraiserProfile of fundraiserProfiles">
+  <app-fundraiser-profile [fundraiserProfile]="fundraiserProfile" [user]="user" [fromFundraiserList]="true" 
+  (onGiveFundsEvent)="onGiveFunds(fundraiserProfile)"></app-fundraiser-profile>
+</div>

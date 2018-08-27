@@ -1,0 +1,42 @@
+<div class="card" style="width: 100%; margin-top: 10px; background-color: #f1f8e9;">
+  <div class="card-body">
+    <div class="row" height="100px">
+      <div class="col-8 d-flex align-items-center">
+        <h2 class="align-middle">{{fundraiserProfile.entityName}}</h2>
+      </div>
+      <div class="col-4">
+        <img [src]="fundraiserProfile.logoStorageURL" class="float-right" width="80px" height="80px">
+      </div>
+    </div>
+    <hr>
+    <p>{{fundraiserProfile.description}}</p>
+    <hr>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p style="font-size: 1.2rem;">Current carbon footprint: <b>{{fundraiserProfile.carbonFootprint}} tCO2</b></p>
+      </div>
+      <div class="col-12 col-md-6">
+        <p style="font-size: 1.2rem;">Percentage willing to reduce: <b>{{fundraiserProfile.carbonReductionPerc}}%</b></p>
+      </div>
+    </div>
+    <hr>
+    <div style="margin-top: 20px; margin-bottom: 20px;; ">
+      <h4 style="margin-bottom:20px;">Contact information: </h4>
+      <div class="row">
+        <div class="col-12 col-md-4" style="text-align: center;">
+          <button type="button" (click)="onFundraiserProfileWebsiteLinkClicked()" class="btn btn-info" style="display: inline-block;">Visit
+            our website</button>
+        </div>
+        <div class="col-12 col-md-4" style="text-align: center; margin-top: 10px;">
+          <p style="display: inline-block;">Phone number: <b>{{fundraiserProfile.phoneNumber}}</b></p>
+        </div>
+        <div class="col-12 col-md-4" style="text-align: center; ">
+          <p style="display: inline-block;">Email: <b>{{fundraiserProfile.email}}</b></p>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="user && (!fromFundraiserList || !user.isAgricultureCompany)" type="button" width="100%" class="btn btn-success float-right"
+      style="font-size: 1.3rem; margin-right: 30px;" (click)="onGiveFundsClicked()">Give funds!
+    </button>
+  </div>
+</div>

@@ -17,6 +17,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FundraisersComponent } from './components/fundraisers/fundraisers.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { FundraiserProfileComponent } from './components/fundraiser-profile/fundraiser-profile.component';
+import { MakeTransactionComponent } from './components/make-transaction/make-transaction.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     TransactionsComponent,
     LoginComponent,
-    FundraisersComponent
+    FundraisersComponent,
+    FundraiserProfileComponent,
+    MakeTransactionComponent
   ],
   imports: [
     BrowserModule,
