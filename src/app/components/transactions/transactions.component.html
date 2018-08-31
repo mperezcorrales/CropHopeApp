@@ -1,3 +1,81 @@
-<p>
-  transactions works!
-</p>
+<div *ngIf="userLoaded">
+  <div *ngIf="hasTransactions; then showTransactions, else showNoTransactions"></div>
+
+  <ng-template #showTransactions>
+    <div *ngIf="user.isAgricultureCompany; then transactionsForAgriculture, else transactionsForNGO"></div>
+    <ng-template #transactionsForAgriculture>
+      <ul>
+        <li *ngFor="let transaction of transactions" >
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">Status: <b>{{transaction.status}}</b></h2>
+              <h5 style="margin-top: 15px">Transaction from:</h5>
+              <label>Company name: {{transaction.fromName}}</label>
+              <p>Company's email: {{transaction.fromEmail}}</p>
+              <h3 style="margin-top: 5px">Contract requests:</h3>
+              <div>
+                <p>Requested carbon emission reduction in percentage (%): <b>{{transaction.carbonReductionPerc}}</b></p>
+              </div>
+              <div>
+                <p>Requested time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
+              </div>
+              <div>
+                <p>Date of transaction: <b>{{transaction.currentDate}}</b></p>
+              </div>
+              <h3 style="margin-top: 5px">Contract ether offered:</h3>
+              <div>
+                <p>Ether: <b>{{transaction.amount}}</b></p>
+              </div>
+              <div *ngIf="!transaction.accepted && !transaction.denied && transaction.acceptedByFrom">
+                <button type="button" class="btn btn-success float-left" (click)="onFromAgricultureCompanyAccept(transaction)">Accept</button>
+                <button type="button" class="btn btn-danger float-right" (click)="onFromAgricultureCompanyDeny(transaction)">Deny</button>
+              </div>
+              <!-- <div>
+                <small>You may want to send an email to the company to further negotiate the contract.</small>
+              </div> -->
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+    <ng-template #transactionsForNGO>
+      <ul>
+        <li *ngFor="let transaction of transactions">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">Status: <b>{{transaction.status}}</b></h2>
+              <h5 style="margin-top: 15px">Transaction to:</h5>
+              <label>Company name: {{transaction.givingToCompanyName}}</label>
+              <h3 style="margin-top: 5px">Contract requests:</h3>
+              <div>
+                <p>Requested carbon emission reduction in percentage (%): <b>{{transaction.carbonReductionPerc}}</b></p>
+              </div>
+              <div>
+                <p>Requested time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
+              </div>
+              <div>
+                <p>Date of transaction: <b>{{transaction.currentDate}}</b></p>
+              </div>
+              <h3 style="margin-top: 5px">Contract ether offered:</h3>
+              <div>
+                <p>Ether: <b>{{transaction.amount}}</b></p>
+              </div>
+              <div *ngIf="!transaction.accepted && !transaction.denied">
+                <!-- <button type="button" class="btn btn-success float-left" (click)="onFromNGOCompanyStandby()">Accept</button> -->
+                <button type="button" class="btn btn-danger float-right" (click)="onFromNGOCompanyDelete(transaction)">Delete</button>
+              </div>
+              <small>You may want to send an email to the company to further negotiate the contract.</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+  </ng-template>
+
+  <ng-template #showNoTransactions>
+    <div>
+      <h4 *ngIf="user.isAgricultureCompany">You haven't received any transactions yet.</h4>
+      <h4 *ngIf="!user.isAgricultureCompany">You haven't started any transactions yet.</h4>
+    </div>
+  </ng-template>
+</div>

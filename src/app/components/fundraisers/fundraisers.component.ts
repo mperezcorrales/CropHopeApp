@@ -31,7 +31,6 @@ export class FundraisersComponent implements OnInit {
   }
 
   onGiveFunds(fundraiserProfile: FundraiserProfile) {
-    console.log('click a', fundraiserProfile.entityName);
     this.router.navigate(['/make-transaction'], { queryParams: {fundraiserProfileId: fundraiserProfile.userId}});
   }
 
