@@ -6,18 +6,18 @@
     <ng-template #transactionsForAgriculture>
       <ul>
         <li *ngFor="let transaction of transactions" >
-          <div class="card">
+          <div class="card" style="background-color: #efebe9;">
             <div class="card-body">
-              <h2 class="card-title">Status: <b>{{transaction.status}}</b></h2>
+              <h3 class="card-title justified">Status: <b>{{transaction.status}}</b></h3>
               <h5 style="margin-top: 15px">Transaction from:</h5>
               <label>Company name: {{transaction.fromName}}</label>
               <p>Company's email: {{transaction.fromEmail}}</p>
               <h3 style="margin-top: 5px">Contract requests:</h3>
               <div>
-                <p>Requested carbon emission reduction in percentage (%): <b>{{transaction.carbonReductionPerc}}</b></p>
+                <p>Carbon emission reduction (%): <b>{{transaction.carbonReductionPerc}}</b></p>
               </div>
               <div>
-                <p>Requested time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
+                <p>Time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
               </div>
               <div>
                 <p>Date of transaction: <b>{{transaction.currentDate}}</b></p>
@@ -41,17 +41,17 @@
     <ng-template #transactionsForNGO>
       <ul>
         <li *ngFor="let transaction of transactions">
-          <div class="card">
+          <div class="card"  style="background-color: #efebe9;">
             <div class="card-body">
-              <h2 class="card-title">Status: <b>{{transaction.status}}</b></h2>
+              <h3 class="card-title">Status: <b>{{transaction.status}}</b></h3>
               <h5 style="margin-top: 15px">Transaction to:</h5>
               <label>Company name: {{transaction.givingToCompanyName}}</label>
               <h3 style="margin-top: 5px">Contract requests:</h3>
               <div>
-                <p>Requested carbon emission reduction in percentage (%): <b>{{transaction.carbonReductionPerc}}</b></p>
+                <p>Carbon emission reduction (%): <b>{{transaction.carbonReductionPerc}}</b></p>
               </div>
               <div>
-                <p>Requested time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
+                <p>Time window to complete task (days): <b>{{transaction.timeWindow}}</b></p>
               </div>
               <div>
                 <p>Date of transaction: <b>{{transaction.currentDate}}</b></p>
@@ -64,7 +64,7 @@
                 <!-- <button type="button" class="btn btn-success float-left" (click)="onFromNGOCompanyStandby()">Accept</button> -->
                 <button type="button" class="btn btn-danger float-right" (click)="onFromNGOCompanyDelete(transaction)">Delete</button>
               </div>
-              <small>You may want to send an email to the company to further negotiate the contract.</small>
+              <small class="justified">You may want to send an email to the company to further negotiate the contract.</small>
             </div>
           </div>
         </li>

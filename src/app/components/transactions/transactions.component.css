@@ -1,4 +1,7 @@
-li {list-style-type: none;}
+ul,li { list-style-type: none;
+    list-style-position:inside;
+    margin:0;
+    padding:0; }
 
 .card {
     margin-top: 20px;

@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
     this.authService.getUser().subscribe(user => {
       if (user) {
         this.user = user;
+        console.log('yes', this.user.isAgricultureCompany);
         this.fundraiserProfileService.getPublicProfile().subscribe((profile) => {
           if (profile) {
             this.publicProfile = new FundraiserProfile(profile);

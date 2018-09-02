@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   closeResult: string;
+  isAgricultureCompany: string;
 
   @ViewChild('openModal') myOpenModalBtn: ElementRef;
 
@@ -39,7 +40,6 @@ export class LoginComponent implements OnInit {
         this.authService.getUserFromFirestore(credential.user).take(1).subscribe(userData => {
           if (userData) {
             this.user = userData as User;
-            console.log('entro aca');
             if (!this.user.finishedForm) {
               const openModal: HTMLElement = this.myOpenModalBtn.nativeElement as HTMLElement;
               openModal.click();
@@ -59,6 +59,11 @@ export class LoginComponent implements OnInit {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log('this.isUserFormFilled()', this.isUserFormFilled());
+      if (this.isAgricultureCompany === 'true') {
+        this.user.isAgricultureCompany = true;
+      } else {
+        this.user.isAgricultureCompany = false;
+      }
       if (this.isUserFormFilled()) {
         this.user.finishedForm = true;
         this.authService.updateUserInFirestore(this.user);

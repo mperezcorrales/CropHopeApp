@@ -1,10 +1,10 @@
 <div class="card" style="width: 100%;" *ngIf="userLoaded">
   <div class="card-body">
-    <h2 class="card-title">Welcome {{user.entityName}}</h2>
+    <h3 class="card-title">Welcome {{user.entityName}}</h3>
     <div *ngIf="user.isAgricultureCompany; then showForAgriculture; else showForNGO"></div>
     <ng-template #showForAgriculture>
-      <p class="card-text">Thanks for trusting CropHope. In this dashboard you will be able to see and edit your company
-        profile. Press the button below to create or edit your your public profile other companies will see when deciding
+      <p class="card-text justified">Thanks for trusting CropHope. In this dashboard you will be able to see and edit your company
+        profile. Press the button below to create or edit your public profile other companies will see when deciding
         who to give funds!
       </p>
       <button type="button" class="btn btn-primary" (click)="showPublicProfileForm = true">Edit public profile</button>
