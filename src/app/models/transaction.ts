@@ -3,12 +3,14 @@ export interface Transaction {
     status?: string;
     denied?: boolean;
     accepted?: boolean;
+    availableForEthTransaction?: boolean;
+    ethTransactionCompleted?: boolean;
+    acceptedByFrom: boolean;
+    acceptedByTo: boolean;
     fromId: string;
     fromName: string;
     fromEmail: string;
-    acceptedByFrom: boolean;
     toId: string;
-    acceptedByTo: boolean;
     givingToCompanyName: string;
     carbonReductionPerc: string;
     timeWindow: string;

@@ -1,10 +1,10 @@
 const getDate = () => {
     const today = new Date();
-    const dd = today.getDay();
+    const dd = today.getDate();
     const mm = today.getMonth() + 1;
     const yyyy = today.getFullYear();
-    let formattedDay;
-    let formattedMonth;
+    let formattedDay = dd.toString();
+    let formattedMonth = mm.toString();
 
     if (dd < 10) {
         formattedDay = '0' + dd;
@@ -13,8 +13,7 @@ const getDate = () => {
     if (mm < 10) {
         formattedMonth = '0' + mm;
     }
-
-    return formattedMonth + '/' + formattedDay + '/' + yyyy;
+    return formattedDay + '/' + formattedMonth + '/' + yyyy;
 };
 
 export {getDate};

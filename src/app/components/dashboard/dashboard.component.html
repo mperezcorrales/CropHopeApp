@@ -48,6 +48,13 @@
         profile. Press the button below start searching for companies to give funds to!
       </p>
       <button type="button" class="btn btn-success" routerLink="/fundraisers">Start giving funds</button>
+      <br><br>
+      <button type="button" class="btn btn-warning" (click)="onRequestCustomizedContractClicked()" >Request customized contract</button>
+      <br><br>
+      <p>* Customized contracts charge 10% of every transaction.</p>
+      <br>
+      <p>Found ethereum address: {{foundEthereumAddress}}</p>
+      <p>Found ethereum balance: {{foundEthereumBalance}}</p>
     </ng-template>
   </div>
 </div>

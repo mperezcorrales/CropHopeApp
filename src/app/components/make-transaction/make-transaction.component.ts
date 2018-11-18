@@ -16,8 +16,8 @@ import { getDate } from '../../utils';
 })
 export class MakeTransactionComponent implements OnInit {
 
-  fundraiserProfileId: string;
-  fundraiserProfile;
+  givingToFundraiserProfileId: string;
+  givingToFundraiserProfile;
   user: User;
   loaded = false;
   transaction: Transaction = {
@@ -31,7 +31,9 @@ export class MakeTransactionComponent implements OnInit {
     amount: '',
     givingToCompanyName: '',
     fromEmail: '',
-    fromName: ''
+    fromName: '',
+    availableForEthTransaction: false,
+    ethTransactionCompleted: false
   };
 
   constructor(private authService: AuthService, private route: ActivatedRoute,
@@ -41,9 +43,9 @@ export class MakeTransactionComponent implements OnInit {
       if (user) {
         this.user = user;
         this.route.queryParams.subscribe((params) => {
-          this.fundraiserProfileId = params.fundraiserProfileId;
-          this.fundraiserProfileService.getSpecificUserFundraiserProfile(this.fundraiserProfileId).subscribe((fundraiserProfile => {
-            this.fundraiserProfile = fundraiserProfile;
+          this.givingToFundraiserProfileId = params.fundraiserProfileId;
+          this.fundraiserProfileService.getSpecificUserFundraiserProfile(this.givingToFundraiserProfileId).subscribe((fundraiserProfile => {
+            this.givingToFundraiserProfile = fundraiserProfile;
             this.fillDefaultTransactionParams();
             this.loaded = true;
           }));
@@ -74,8 +76,8 @@ export class MakeTransactionComponent implements OnInit {
     this.transaction.fromId = this.user.uid;
     this.transaction.fromName = this.user.entityName;
     this.transaction.fromEmail = this.user.email;
-    this.transaction.toId = this.fundraiserProfile.userId;
-    this.transaction.givingToCompanyName = this.fundraiserProfile.entityName;
+    this.transaction.toId = this.givingToFundraiserProfile.userId;
+    this.transaction.givingToCompanyName = this.givingToFundraiserProfile.entityName;
     this.transaction.currentDate = getDate();
     this.transaction.status = 'Waiting to be accepted.';
     this.transaction.accepted = false;
@@ -86,6 +88,10 @@ export class MakeTransactionComponent implements OnInit {
     console.log(this.transaction);
     return this.transaction.toId !== '' && this.transaction.fromId !== '' && this.transaction.carbonReductionPerc !== ''
       && this.transaction.timeWindow !== '' && this.transaction.currentDate !== '' && this.transaction.amount !== '';
+  }
+
+  onUsedCustomizedContract() {
+    alert('No customized contracts were found');
   }
 
 }

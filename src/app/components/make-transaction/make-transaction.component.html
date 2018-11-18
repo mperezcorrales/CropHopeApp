@@ -5,26 +5,33 @@
       it.
     </p>
     <h5 style="margin-top: 15px">Giving to:</h5>
-    <label>Company name: {{fundraiserProfile.entityName}}</label>
-    <p class="justified">Company's description: {{fundraiserProfile.description}}</p>
-    <p>Company's current footprint: {{fundraiserProfile.carbonFootprint}}</p>
+    <label>Company name: {{givingToFundraiserProfile.entityName}}</label>
+    <p class="justified">Company's description: {{givingToFundraiserProfile.description}}</p>
+    <p>Company's current footprint: {{givingToFundraiserProfile.carbonFootprint}}</p>
     <h3 style="margin-top: 5px">Please fill your contract requests:</h3>
     <form>
       <div class="form-group">
         <label>Carbon emission reduction (%)</label>
-        <input class="form-control" placeholder="30" [(ngModel)]="transaction.carbonReductionPerc" name="carbonReductionPerc">
+        <input class="form-control" [(ngModel)]="transaction.carbonReductionPerc" name="carbonReductionPerc" type="number">
         <small class="form-text text-muted">Take into account the company's current carbon footprint.</small>
       </div>
       <div class="form-group">
         <label>Time window to complete task (days)</label>
-        <input class="form-control" placeholder="90" [(ngModel)]="transaction.timeWindow" name="timeWindow">
+        <input class="form-control" [(ngModel)]="transaction.timeWindow" name="timeWindow" type="number">
       </div>
       <div class="form-group">
         <label>Ethers you are willing to give</label>
-        <input class="form-control" placeholder="8.35" [(ngModel)]="transaction.amount" name="amount">
+        <input class="form-control" [(ngModel)]="transaction.amount" name="amount" type="number">
       </div>
-      <button type="button" class="btn btn-success float-left" (click)="onTransactionAccepted()">Accept</button>
-      <button type="button" class="btn btn-danger float-right" (click)="onTransactionCancelled()">Cancel</button>
+      <div>
+        <button type="button" class="btn btn-success float-left" (click)="onTransactionAccepted()">Accept</button>
+        <button type="button" class="btn btn-danger float-right" (click)="onTransactionCancelled()">Cancel</button>
+      </div>
+      <br>
+      <br>
+      <div>
+        <button type="button" class="btn btn-warning float-right" (click)="onUsedCustomizedContract()">Use customized contract</button>
+      </div>
     </form>
   </div>
 </div>

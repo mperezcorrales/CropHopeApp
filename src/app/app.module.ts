@@ -20,6 +20,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FundraiserProfileComponent } from './components/fundraiser-profile/fundraiser-profile.component';
 import { MakeTransactionComponent } from './components/make-transaction/make-transaction.component';
+import { EthcontractService } from './services/eth-contract.service';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { MakeTransactionComponent } from './components/make-transaction/make-tra
   providers: [
     AuthService,
     FundraiserProfileService,
-    TransactionsService
+    TransactionsService,
+    EthcontractService
   ],
   bootstrap: [AppComponent]
 })

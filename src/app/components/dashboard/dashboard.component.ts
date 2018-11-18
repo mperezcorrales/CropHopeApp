@@ -1,3 +1,4 @@
+import { EthcontractService } from './../../services/eth-contract.service';
 import { FundraiserProfileService } from './../../services/fundraiser-profile.service';
 import { FundraiserProfile } from './../../models/fundraiserProfile';
 import { User } from './../../models/user';
@@ -17,23 +18,38 @@ export class DashboardComponent implements OnInit {
   showPublicProfileForm = false;
   publicProfile = new FundraiserProfile(null);
   publicProfileFile: File;
+  foundEthereumAddress = 'Not found';
+  foundEthereumBalance = 'Not found';
 
   constructor(private authService: AuthService, private router: Router,
-    private fundraiserProfileService: FundraiserProfileService) {
+    private fundraiserProfileService: FundraiserProfileService, private ethcontractService: EthcontractService) {
     this.authService.getUser().subscribe(user => {
       if (user) {
         this.user = user;
-        console.log('yes', this.user.isAgricultureCompany);
+        console.log('is user agriculture company: ', this.user.isAgricultureCompany);
         this.fundraiserProfileService.getPublicProfile().subscribe((profile) => {
           if (profile) {
             this.publicProfile = new FundraiserProfile(profile);
           }
           this.userLoaded = true;
+          this.initAndDisplayAccount();
         });
       } else {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  initAndDisplayAccount = () => {
+    const that = this;
+    this.ethcontractService.getAccountInfo().then(function(acctInfo: any) {
+      console.log(acctInfo);
+      that.foundEthereumAddress = acctInfo.fromAccount;
+      that.foundEthereumBalance = acctInfo.balance;
+    }).catch(function(error) {
+      console.log(error);
+    });
+
   }
 
   ngOnInit() {
@@ -66,6 +82,12 @@ export class DashboardComponent implements OnInit {
   onPublicProfileLogoUploaded($event) {
     const e = event as any;
     this.publicProfileFile = e.target.files[0];
+  }
+
+  onRequestCustomizedContractClicked() {
+    // tslint:disable-next-line:max-line-length
+    window.open('https://mail.google.com/mail/u/0/?view=cm&fs=1&to=crophope@gmail.com&su=Customized Contract Request&body=Please fill your data, contract parameteres and extra details here.&tf=1');
+
   }
 
 }

@@ -44,9 +44,9 @@ export class TransactionsComponent implements OnInit {
   }
 
   onFromAgricultureCompanyAccept(transaction: Transaction) {
-    transaction.status = 'Accepted and completed';
-    transaction.acceptedByFrom = true;
-    transaction.accepted = true;
+    transaction.status = 'Accepted and waiting transaction';
+    transaction.acceptedByTo = true;
+    transaction.availableForEthTransaction = true;
     this.transactionService.updateTransaction(transaction);
   }
 
@@ -54,6 +54,12 @@ export class TransactionsComponent implements OnInit {
     transaction.status = 'Denied';
     transaction.acceptedByFrom = false;
     transaction.denied = true;
+    this.transactionService.updateTransaction(transaction);
+  }
+
+  onFromNGOCompanyFinishedEthTransaction(transaction: Transaction) {
+    transaction.status = 'Ethereum transaction completed';
+    transaction.ethTransactionCompleted = true;
     this.transactionService.updateTransaction(transaction);
   }
 

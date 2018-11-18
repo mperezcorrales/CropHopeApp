@@ -8,30 +8,37 @@ contract Transaction {
         uint requiredCarbonPercDecrease;
         uint carbonReducProgress;
         bool contractCompleted;    
-        bool contractExpired;
+        uint contractDate;
+        uint contractLastUpdateDate;
     }
 
     // Store Transactions Count
     uint public transactionCount;
 
-    mapping(address => SingleTransaction) public transactionsMap;
+    mapping(uint => SingleTransaction) public transactionsMap;
 
-    event TransferFund(address _transferTo, address _transferFrom, uint amount);
+    event TransferFund(address _transferTo, address _transferFrom, uint _amount, uint _transactionMapKey);
 
     constructor() public {        
     }
 
-    event TransferFund(address _transferTo, address _transferFrom, uint amount);
-
     function transferFund(address _transferTo, uint requiredCarbonPercDecrease) public payable returns (bool){
         _transferTo.transfer(msg.value);
         transactionCount++;
-        transactionsMap[transactionCount] = SingleTransaction(msg.sender, _transferTo, requiredCarbonPercDecrease, 0, false, false);
-        emit TransferFund(transferTo, transferFrom, msg.value);
+        transactionsMap[transactionCount] = SingleTransaction(msg.sender, _transferTo, requiredCarbonPercDecrease, 0, false, now, now);
+        emit TransferFund(_transferTo, msg.sender, msg.value, transactionCount);
         return true;
     }
     
     function getBalanceOfCurrentAccount() public payable returns (uint) {
-        return transferFrom.balance;
+        return msg.sender.balance;
+    }
+
+    function editTransactionCarbonReducProgress(uint _transactionMapKey, uint _carbonReducProgress) public {
+        transactionsMap[_transactionMapKey].carbonReducProgress = _carbonReducProgress;
+        transactionsMap[_transactionMapKey].contractLastUpdateDate = now;
+        if(_carbonReducProgress >= transactionsMap[_transactionMapKey].requiredCarbonPercDecrease) {
+            transactionsMap[_transactionMapKey].contractCompleted = true;
+        }
     }
 }
