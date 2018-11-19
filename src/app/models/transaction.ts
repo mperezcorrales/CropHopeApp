@@ -5,6 +5,9 @@ export interface Transaction {
     accepted?: boolean;
     availableForEthTransaction?: boolean;
     ethTransactionCompleted?: boolean;
+    fromEthAddress?: string;
+    toEthAddress?: string;
+    transactionEthId?: number;
     acceptedByFrom: boolean;
     acceptedByTo: boolean;
     fromId: string;
@@ -13,6 +16,7 @@ export interface Transaction {
     toId: string;
     givingToCompanyName: string;
     carbonReductionPerc: string;
+    carbonReductionProg?: string;
     timeWindow: string;
     currentDate: string;
     amount: string;

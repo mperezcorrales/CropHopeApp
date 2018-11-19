@@ -29,6 +29,17 @@
               <div *ngIf="!transaction.acceptedByTo && !transaction.denied && transaction.acceptedByFrom">
                 <button type="button" class="btn btn-success float-left" (click)="onFromAgricultureCompanyAccept(transaction)">Accept</button>
                 <button type="button" class="btn btn-danger float-right" (click)="onFromAgricultureCompanyDeny(transaction)">Deny</button>
+              </div>              
+              <div *ngIf="transaction.ethTransactionCompleted"> 
+                <div *ngIf="user.isAgricultureCompany">
+                  <button type="button" class="btn btn-warning float-right" (click)="onUpdateCarbonProgress(transaction)">Update</button>
+                  <input type="number" class="float-right" [(ngModel)]="transaction.carbonReductionProg" placeholder="Carbon reduc. progress" style="margin-right: 10px; width: 190px;">
+                  <br>
+                  <br>
+                  <br>
+                  <button type="button" class="btn btn-success float-right" (click)="onViewTransactionContract(transaction)">View contract</button>
+                </div> 
+                <button *ngIf="!user.isAgricultureCompany" type="button" class="btn btn-success float-right" (click)="onViewTransactionContract(transaction)">View contract</button>              
               </div>
               <!-- <div>
                 <small>You may want to send an email to the company to further negotiate the contract.</small>
@@ -39,6 +50,10 @@
       </ul>
     </ng-template>
     <ng-template #transactionsForNGO>
+      <div>
+        <p>Found ethereum address: <b>{{foundEthereumAddress}}</b></p>
+        <p>Found ethereum balance: <b>{{foundEthereumBalance}}</b></p>
+      </div>
       <ul>
         <li *ngFor="let transaction of transactions">
           <div class="card"  style="background-color: #efebe9;">
@@ -68,6 +83,9 @@
                 <br>
                 <br>
               </div>
+              <div *ngIf="transaction.ethTransactionCompleted">
+                <button type="button" class="btn btn-success float-right" (click)="onViewTransactionContract(transaction)" >View contract</button>
+              </div>
               <small class="justified">You may want to send an email to the company to further negotiate the contract.</small>
             </div>
           </div>
@@ -83,3 +101,22 @@
     </div>
   </ng-template>
 </div>
+
+<ng-template #content let-modal let-c="close('Close click')" let-d="dismiss('Cross click')">
+    <div class="modal-header">
+        <h4 class="modal-title">Ethereum contract details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Required carbon reduction: <b>{{contractDetailsRequiredCarbonPercDecrease}}</b></p>
+        <p>Carbon reduction progress: <b>{{contractDetailsCarbonReducProgress}}</b></p>
+        <p>Contract completed: <b>{{contractDetailsContractCompleted}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c">Close</button>
+      </div>
+</ng-template>
+
+<button #openModal (click)="open(content)" [hidden]="true">Launch demo modal</button>

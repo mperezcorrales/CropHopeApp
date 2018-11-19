@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   foundEthereumBalance = 'Not found';
 
   constructor(private authService: AuthService, private router: Router,
-    private fundraiserProfileService: FundraiserProfileService, private ethcontractService: EthcontractService) {
+    private fundraiserProfileService: FundraiserProfileService, private ethContractService: EthcontractService) {
     this.authService.getUser().subscribe(user => {
       if (user) {
         this.user = user;
@@ -42,8 +42,7 @@ export class DashboardComponent implements OnInit {
 
   initAndDisplayAccount = () => {
     const that = this;
-    this.ethcontractService.getAccountInfo().then(function(acctInfo: any) {
-      console.log(acctInfo);
+    this.ethContractService.getAccountInfo().then(function(acctInfo: any) {
       that.foundEthereumAddress = acctInfo.fromAccount;
       that.foundEthereumBalance = acctInfo.balance;
     }).catch(function(error) {
@@ -56,10 +55,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onPublicProfileSubmit() {
-    console.log(this.showPublicProfileForm);
     if (this.publicProfile.allParamsAreFilled() && this.publicProfileFile) {
       this.publicProfile.entityName = this.user.entityName;
       this.publicProfile.email = this.user.email;
+      this.publicProfile.userEthAddress = this.user.ethereumId;
       if (!this.publicProfile.isFilled) {
         this.publicProfile.isFilled = true;
         this.fundraiserProfileService.addPublicProfile(this.user.uid, this.publicProfile, this.publicProfileFile);

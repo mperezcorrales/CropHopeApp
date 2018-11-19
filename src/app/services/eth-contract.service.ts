@@ -14,8 +14,8 @@ const tokenAbi = require('../../../contracts/build/contracts/Transaction.json');
 export class EthcontractService {
   private web3Provider: null;
   private contracts: {};
-  private paymentContract: any;
-
+  private transactionContract: any;
+  private account = '0x0';
 
   constructor() {
     if (typeof window.web3 !== 'undefined') {
@@ -25,15 +25,18 @@ export class EthcontractService {
     }
 
     window.web3 = new Web3(this.web3Provider);
-    this.paymentContract = TruffleContract(tokenAbi);
-    this.paymentContract.setProvider(this.web3Provider);
+    this.transactionContract = TruffleContract(tokenAbi);
+    this.transactionContract.setProvider(this.web3Provider);
+    this.getAccountInfo();
   }
 
   getAccountInfo() {
+    const that = this;
     return new Promise((resolve, reject) => {
       window.web3.eth.getCoinbase(function(err, account) {
 
         if (err === null) {
+          that.account = account;
           // tslint:disable-next-line:no-shadowed-variable
           window.web3.eth.getBalance(account, function(err, balance) {
             if (err === null) {
@@ -47,9 +50,13 @@ export class EthcontractService {
     });
   }
 
+  getTransactionContractInstance() {
+    return this.transactionContract;
+  }
+
   listenForEvents() {
     return new Promise((resolve, reject) => {
-      this.paymentContract.deployed().then(function(instance) {
+      this.transactionContract.deployed().then(function(instance) {
         instance.TransferFund({}, {
           fromBlock: 0,
           toBlock: 'latest'
@@ -66,15 +73,17 @@ export class EthcontractService {
     _transferFrom,
     _transferTo,
     _amount,
-    _remarks
+    _carbonReducPerc,
+    _transactionId,
   ) {
     const that = this;
-
     return new Promise((resolve, reject) => {
 
-      this.paymentContract.deployed().then(function(instance) {
+      this.transactionContract.deployed().then(function(instance) {
           return instance.transferFund(
             _transferTo,
+            _carbonReducPerc,
+            _transactionId,
             {
               from: _transferFrom,
               value: window.web3.toWei(_amount, 'ether')
@@ -90,4 +99,45 @@ export class EthcontractService {
         });
     });
   }
+
+  getSingleTransactionWithMapKey(_transactionMapKey) {
+    const that = this;
+    console.log('_transactionMapKey: ', _transactionMapKey);
+    return new Promise((resolve, reject) => {
+      this.transactionContract.deployed().then(function(instance) {
+        return instance
+          .getSingleTransactionWithMapKey.call(_transactionMapKey, { from: that.account })
+          .then(function(transaction) {
+            if (transaction) {
+              return resolve(transaction);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            return reject('Error in getSingleTransactionWithMapKey');
+          });
+      });
+    });
+  }
+
+  editTransactionCarbonReducProgress(_transactionMapKey, _carbonReducProgress) {
+    const that = this;
+    console.log(_transactionMapKey);
+    console.log(_carbonReducProgress);
+    return new Promise((resolve, reject) => {
+      this.transactionContract.deployed().then(function(instance) {
+        return instance.editTransactionCarbonReducProgress(_transactionMapKey, _carbonReducProgress, { from: that.account })
+          .then(function(status) {
+            if (status) {
+              return resolve({status: true});
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+            return reject({status: false});
+          });
+      });
+    });
+  }
+
 }

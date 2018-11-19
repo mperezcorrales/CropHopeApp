@@ -1,5 +1,6 @@
 export class FundraiserProfile {
     userId = '';
+    userEthAddress = '';
     entityName = '';
     email = '';
     description = '';
@@ -13,6 +14,7 @@ export class FundraiserProfile {
     constructor(profileInterface) {
         if (profileInterface) {
             this.userId = profileInterface.userId;
+            this.userEthAddress = profileInterface.userEthAddress;
             this.entityName = profileInterface.entityName;
             this.email = profileInterface.email;
             this.description = profileInterface.description;

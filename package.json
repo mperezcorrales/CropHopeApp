@@ -22,6 +22,7 @@
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^3.0.0",
     "angularfire2": "^5.0.0-rc.11",
+    "buffer": "^5.2.1",
     "core-js": "^2.5.4",
     "firebase": "^5.4.0",
     "rxjs": "^6.0.0",

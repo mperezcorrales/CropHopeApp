@@ -33,7 +33,9 @@ export class MakeTransactionComponent implements OnInit {
     fromEmail: '',
     fromName: '',
     availableForEthTransaction: false,
-    ethTransactionCompleted: false
+    ethTransactionCompleted: false,
+    fromEthAddress: '',
+    toEthAddress: ''
   };
 
   constructor(private authService: AuthService, private route: ActivatedRoute,
@@ -77,11 +79,13 @@ export class MakeTransactionComponent implements OnInit {
     this.transaction.fromName = this.user.entityName;
     this.transaction.fromEmail = this.user.email;
     this.transaction.toId = this.givingToFundraiserProfile.userId;
+    this.transaction.toEthAddress = this.givingToFundraiserProfile.userEthAddress;
     this.transaction.givingToCompanyName = this.givingToFundraiserProfile.entityName;
     this.transaction.currentDate = getDate();
     this.transaction.status = 'Waiting to be accepted.';
     this.transaction.accepted = false;
     this.transaction.denied = false;
+    this.transaction.transactionEthId = Math.floor(Math.random() * (50000 - 1 + 1)) + 1;
   }
 
   areAllTransactionParametersFilled() {
